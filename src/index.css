@@ -16,7 +16,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; - Removed to use Lenis */
 }
 
 body {

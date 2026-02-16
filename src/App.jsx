@@ -12,6 +12,7 @@ import {
   Facebook,
   MessageCircle,
 } from "lucide-react";
+import Lenis from "lenis";
 
 // --- Components ---
 
@@ -258,6 +259,31 @@ const App = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Initialize Lenis for smooth scrolling
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: "vertical",
+      gestureDirection: "vertical",
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
   }, []);
 
   const navLinks = [
@@ -741,7 +767,7 @@ const App = () => {
                   </div>
                   <div>
                     <p className="font-bold text-white">Phone</p>
-                    <p>+91 9775746484</p>
+                    <p>+91 8697666994</p>
                   </div>
                 </div>
 
@@ -762,7 +788,7 @@ const App = () => {
                     className="rounded-full bg-green-500 hover:bg-green-600 text-white border-none shadow-green-900/50"
                     onClick={() =>
                       window.open(
-                        "https://wa.me/919775746484?text=Hi, I would like to book an appointment for nail art",
+                        "https://wa.me/918697666994?text=Hi, I would like to book an appointment for nail art",
                         "_blank",
                       )
                     }
@@ -778,7 +804,7 @@ const App = () => {
                 className="bg-white/5 border-white/10 hover:bg-white/10 transition-colors cursor-pointer group"
                 onClick={() =>
                   window.open(
-                    "https://wa.me/919775746484?text=Hi, I would like to book an appointment for nail art",
+                    "https://wa.me/918697666994?text=Hi, I would like to book an appointment for nail art",
                     "_blank",
                   )
                 }
@@ -799,7 +825,7 @@ const App = () => {
 
               <Card
                 className="bg-white/5 border-white/10 hover:bg-white/10 transition-colors cursor-pointer group"
-                onClick={() => window.open("tel:+919775746484")}
+                onClick={() => window.open("tel:+918697666994")}
               >
                 <div className="flex items-center gap-6">
                   <div className="w-16 h-16 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
@@ -807,7 +833,7 @@ const App = () => {
                   </div>
                   <div>
                     <h4 className="text-xl font-bold">Call Me Directly</h4>
-                    <p className="text-gray-400">+91 9775746484</p>
+                    <p className="text-gray-400">+91 8697666994</p>
                   </div>
                   <ChevronRight className="ml-auto text-gray-600 group-hover:text-white transition-colors" />
                 </div>
