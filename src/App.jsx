@@ -274,10 +274,10 @@ const App = () => {
       touchMultiplier: 2,
     });
 
-    function raf(time) {
+    const raf = (time) => {
       lenis.raf(time);
       requestAnimationFrame(raf);
-    }
+    };
 
     requestAnimationFrame(raf);
 
@@ -285,6 +285,14 @@ const App = () => {
       lenis.destroy();
     };
   }, []);
+
+  const scrollToSection = (e, id) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const navLinks = [
     { name: "Home", href: "#home" },
@@ -315,6 +323,7 @@ const App = () => {
               <a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => scrollToSection(e, link.href.substring(1))}
                 className="text-gray-600 hover:text-pink-500 font-medium transition-colors"
               >
                 {link.name}
@@ -323,11 +332,7 @@ const App = () => {
             <Button
               size="sm"
               className="px-6 py-2"
-              onClick={() =>
-                document
-                  .getElementById("contact")
-                  .scrollIntoView({ behavior: "smooth" })
-              }
+              onClick={(e) => scrollToSection(e, "contact")}
             >
               Book Now
             </Button>
@@ -355,7 +360,10 @@ const App = () => {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => {
+                  setIsMenuOpen(false);
+                  scrollToSection(e, link.href.substring(1));
+                }}
                 className={`text-lg font-medium text-gray-700 py-2 border-b border-gray-100 hover:text-pink-500 transition-all duration-300 ${
                   isMenuOpen
                     ? "translate-x-0 opacity-100"
@@ -379,11 +387,9 @@ const App = () => {
                   ? `${navLinks.length * 50}ms`
                   : "0ms",
               }}
-              onClick={() => {
+              onClick={(e) => {
                 setIsMenuOpen(false);
-                document
-                  .getElementById("contact")
-                  .scrollIntoView({ behavior: "smooth" });
+                scrollToSection(e, "contact");
               }}
             >
               Book Appointment
@@ -418,22 +424,12 @@ const App = () => {
               Rimi Dey, bring salon excellence wherever you prefer.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button
-                onClick={() =>
-                  document
-                    .getElementById("contact")
-                    .scrollIntoView({ behavior: "smooth" })
-                }
-              >
+              <Button onClick={(e) => scrollToSection(e, "contact")}>
                 Book Your Session
               </Button>
               <Button
                 variant="secondary"
-                onClick={() =>
-                  document
-                    .getElementById("gallery")
-                    .scrollIntoView({ behavior: "smooth" })
-                }
+                onClick={(e) => scrollToSection(e, "gallery")}
               >
                 Explore Art Gallery
               </Button>
